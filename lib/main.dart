@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/core/application_theme_manager.dart';
 import 'package:todo_app/core/page_routes_name.dart';
 import 'package:todo_app/core/routes_generator.dart';
 
@@ -12,9 +13,10 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return  MaterialApp(
       title: "TODO App",
       debugShowCheckedModeBanner: false,
+      theme: Application_Theme_manager.LightThemeData,
       initialRoute: PageRoutesName.initial,
       onGenerateRoute: RoutesGenerator.onGenerateRoutes,
     );
