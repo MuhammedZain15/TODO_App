@@ -8,15 +8,15 @@ class Signup extends StatefulWidget {
 }
 
 class _SignupState extends State<Signup> {
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController FullnameController = TextEditingController();
+  var formkey = GlobalKey<FormState>();
+  bool isobscure = false;
   @override
   Widget build(BuildContext context) {
-    TextEditingController emailController = TextEditingController();
-    TextEditingController passwordController = TextEditingController();
-    TextEditingController FullnameController = TextEditingController();
-
-    bool isobscure = false;
     var theme = Theme.of(context);
-    var formkey = GlobalKey<FormState>();
+
     return Container(
       decoration: const BoxDecoration(
           image: DecorationImage(
@@ -122,7 +122,7 @@ class _SignupState extends State<Signup> {
                     height: 20,
                   ),
                   TextFormField(
-                    obscureText: true,
+                    obscureText:isobscure,
                     validator: (value) {
                       if (value == null || value.trim().isEmpty) {
                         return "Please Enter your mail";
