@@ -9,14 +9,15 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final GlobalKey<FormState> formkey = GlobalKey<FormState>();
+
+  bool isobscure = true;
+
   @override
   Widget build(BuildContext context) {
-    TextEditingController emailController = TextEditingController();
-    TextEditingController passwordController = TextEditingController();
-
-    bool isobscure = true;
     var theme = Theme.of(context);
-    var formkey = GlobalKey<FormState>();
     return Container(
       decoration: const BoxDecoration(
           image: DecorationImage(
@@ -30,7 +31,6 @@ class _LoginViewState extends State<LoginView> {
           backgroundColor: Colors.transparent,
           appBar: AppBar(
             title: const Text("Login"),
-
           ),
           body: Form(
             key: formkey,
@@ -74,7 +74,7 @@ class _LoginViewState extends State<LoginView> {
                       focusedBorder: UnderlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                           borderSide:
-                              BorderSide(width: 2, color: theme.primaryColor)),
+                          BorderSide(width: 2, color: theme.primaryColor)),
                       hintText: "Enter your Email address",
                       label: Text(
                         "E-mail",
@@ -121,7 +121,7 @@ class _LoginViewState extends State<LoginView> {
                       focusedBorder: UnderlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                           borderSide:
-                              BorderSide(width: 2, color: theme.primaryColor)),
+                          BorderSide(width: 2, color: theme.primaryColor)),
                       hintText: "Enter your Password",
                       label: Text(
                         "Password",
@@ -163,7 +163,7 @@ class _LoginViewState extends State<LoginView> {
                         Text(
                           "Login",
                           style: theme.textTheme.displaySmall?.copyWith(
-                              fontWeight: FontWeight.bold, fontSize: 20,color: Colors.white),
+                              fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white),
                         ),
                         const Icon(
                           Icons.arrow_forward,
@@ -178,7 +178,7 @@ class _LoginViewState extends State<LoginView> {
                   ),
                   InkWell(
                     onTap: (){
-                      Navigator.pushNamed(context,PageRoutesName.signup);
+                      Navigator.pushNamed(context, PageRoutesName.signup);
                     },
                     child: Text(
                       "Or create my account ",
