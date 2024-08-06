@@ -125,7 +125,8 @@ class _SignupState extends State<Signup> {
                     obscureText:isobscure,
                     validator: (value) {
                       if (value == null || value.trim().isEmpty) {
-                        return "Please Enter your mail";
+                        return "Please Enter your Password";
+               
                       }
                       return null;
                     },
