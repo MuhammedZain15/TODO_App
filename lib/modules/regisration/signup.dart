@@ -1,23 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:todo_app/core/page_routes_name.dart';
 
-class LoginView extends StatefulWidget {
-  const LoginView({super.key});
+class Signup extends StatefulWidget {
+  const Signup({super.key});
 
   @override
-  State<LoginView> createState() => _LoginViewState();
+  State<Signup> createState() => _SignupState();
 }
 
-class _LoginViewState extends State<LoginView> {
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  final GlobalKey<FormState> formkey = GlobalKey<FormState>();
-
-  bool isobscure = true;
-
+class _SignupState extends State<Signup> {
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController FullnameController = TextEditingController();
+  var formkey = GlobalKey<FormState>();
+  bool isobscure = false;
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
+
     return Container(
       decoration: const BoxDecoration(
           image: DecorationImage(
@@ -30,7 +29,10 @@ class _LoginViewState extends State<LoginView> {
         child: Scaffold(
           backgroundColor: Colors.transparent,
           appBar: AppBar(
-            title: const Text("Login"),
+            iconTheme: IconThemeData(
+              color: Colors.white
+            ),
+            title: const Text("Create Account"),
           ),
           body: Form(
             key: formkey,
@@ -39,12 +41,46 @@ class _LoginViewState extends State<LoginView> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   const SizedBox(
-                    height: 170,
+                    height: 200,
                   ),
-                  Text(
-                    "Welcome Back!",
-                    textAlign: TextAlign.start,
-                    style: theme.textTheme.bodyLarge,
+                  TextFormField(
+                    validator: (value) {
+                      if (value == null || value.trim().isEmpty) {
+                        return "Please Enter Name";
+                      }
+                      return null;
+                    },
+                    controller: FullnameController,
+                    cursorColor: theme.primaryColor,
+                    cursorHeight: 30,
+                    style: const TextStyle(
+                        fontFamily: "Poppins",
+                        color: Colors.black,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600),
+                    decoration: InputDecoration(
+                      suffixIcon: Icon(
+                        Icons.person,
+                        color: theme.primaryColor,
+                      ),
+                      errorStyle: const TextStyle(
+                        fontFamily: "Poppins",
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      focusedBorder: UnderlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide:
+                              BorderSide(width: 2, color: theme.primaryColor)),
+                      hintText: "Enter your Name",
+                      label: Text(
+                        "Full-Name",
+                        style: theme.textTheme.displaySmall,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
                   ),
                   TextFormField(
                     validator: (value) {
@@ -74,7 +110,7 @@ class _LoginViewState extends State<LoginView> {
                       focusedBorder: UnderlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                           borderSide:
-                          BorderSide(width: 2, color: theme.primaryColor)),
+                              BorderSide(width: 2, color: theme.primaryColor)),
                       hintText: "Enter your Email address",
                       label: Text(
                         "E-mail",
@@ -86,10 +122,10 @@ class _LoginViewState extends State<LoginView> {
                     height: 20,
                   ),
                   TextFormField(
-                    obscureText: isobscure,
+                    obscureText:isobscure,
                     validator: (value) {
                       if (value == null || value.trim().isEmpty) {
-                        return "Please Enter Password";
+                        return "Please Enter your Password";
                       }
                       return null;
                     },
@@ -109,7 +145,7 @@ class _LoginViewState extends State<LoginView> {
                           });
                         },
                         icon: Icon(
-                          isobscure ? Icons.visibility_off : Icons.visibility,
+                          isobscure ? Icons.visibility : Icons.visibility_off,
                           color: theme.primaryColor,
                         ),
                       ),
@@ -121,25 +157,12 @@ class _LoginViewState extends State<LoginView> {
                       focusedBorder: UnderlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                           borderSide:
-                          BorderSide(width: 2, color: theme.primaryColor)),
+                              BorderSide(width: 2, color: theme.primaryColor)),
                       hintText: "Enter your Password",
                       label: Text(
                         "Password",
                         style: theme.textTheme.displaySmall,
                       ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  InkWell(
-                    child: Text(
-                      "Forget password ? ",
-                      style: theme.textTheme.displaySmall?.copyWith(
-                          fontWeight: FontWeight.w500,
-                          color: Colors.black,
-                          fontSize: 16,
-                          decoration: TextDecoration.underline),
                     ),
                   ),
                   const SizedBox(
@@ -161,9 +184,9 @@ class _LoginViewState extends State<LoginView> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "Login",
+                          "Create Account",
                           style: theme.textTheme.displaySmall?.copyWith(
-                              fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white),
+                              fontWeight: FontWeight.bold, fontSize: 20,color: Colors.white),
                         ),
                         const Icon(
                           Icons.arrow_forward,
@@ -171,22 +194,6 @@ class _LoginViewState extends State<LoginView> {
                           size: 20,
                         )
                       ],
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  InkWell(
-                    onTap: (){
-                      Navigator.pushNamed(context, PageRoutesName.signup);
-                    },
-                    child: Text(
-                      "Or create my account ",
-                      style: theme.textTheme.displaySmall?.copyWith(
-                          fontWeight: FontWeight.w500,
-                          color: Colors.black,
-                          fontSize: 16,
-                          decoration: TextDecoration.underline),
                     ),
                   ),
                 ],
