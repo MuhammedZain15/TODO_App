@@ -126,6 +126,7 @@ class _SignupState extends State<Signup> {
                     validator: (value) {
                       if (value == null || value.trim().isEmpty) {
                         return "Please Enter your Password";
+               
                       }
                       return null;
                     },
