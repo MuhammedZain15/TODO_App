@@ -1,0 +1,21 @@
+{
+  "login": "تسحيل الدخول",
+  "welcome back ": "مرحبا بعودتك !",
+  "email": "البريد إلكتروني",
+  "password": "كلمة السر ",
+  "forget password": "هل نسيت كلمة المرور",
+  "or create my account": "أو قم بإنشاء حسابي",
+  "full-name": "الاسم الكامل",
+  "create account": "إنشاء حساب",
+  "to do list" : "قائمة المهام",
+  "no tasks" : "لا توجد مهام",
+  "edit": "تعديل",
+  "delete" : "حذف",
+  "done":"مكتمل",
+  "add new task": "إضافة مهمة جديدة",
+  "title": "العنوان",
+  "description": "الوصف",
+  "selected date": "التاريخ المحدد",
+  "setting": "إعدادات",
+  "theme": "الوضع"
+}

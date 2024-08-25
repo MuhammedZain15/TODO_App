@@ -1,22 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/core/firebase_utils.dart';
 
-class Signup extends StatefulWidget {
-  const Signup({super.key});
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:todo_app/feature/regisration/signup.dart';
+import 'package:todo_app/layout/layout_view.dart';
+
+class LoginView extends StatefulWidget {
+  LoginView({super.key});
+
+  static const String routename = "LogIN";
 
   @override
-  State<Signup> createState() => _SignupState();
+  State<LoginView> createState() => _LoginViewState();
 }
 
-class _SignupState extends State<Signup> {
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController FullnameController = TextEditingController();
-  var formkey = GlobalKey<FormState>();
-  bool isobscure = false;
+class _LoginViewState extends State<LoginView> {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final GlobalKey<FormState> formkey = GlobalKey<FormState>();
+
+  bool isobscure = true;
+
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
-
+    var lang = AppLocalizations.of(context)!;
     return Container(
       decoration: const BoxDecoration(
           image: DecorationImage(
@@ -29,10 +37,7 @@ class _SignupState extends State<Signup> {
         child: Scaffold(
           backgroundColor: Colors.transparent,
           appBar: AppBar(
-            iconTheme: IconThemeData(
-              color: Colors.white
-            ),
-            title: const Text("Create Account"),
+            title: Text(lang.login),
           ),
           body: Form(
             key: formkey,
@@ -41,46 +46,12 @@ class _SignupState extends State<Signup> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   const SizedBox(
-                    height: 200,
+                    height: 170,
                   ),
-                  TextFormField(
-                    validator: (value) {
-                      if (value == null || value.trim().isEmpty) {
-                        return "Please Enter Name";
-                      }
-                      return null;
-                    },
-                    controller: FullnameController,
-                    cursorColor: theme.primaryColor,
-                    cursorHeight: 30,
-                    style: const TextStyle(
-                        fontFamily: "Poppins",
-                        color: Colors.black,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600),
-                    decoration: InputDecoration(
-                      suffixIcon: Icon(
-                        Icons.person,
-                        color: theme.primaryColor,
-                      ),
-                      errorStyle: const TextStyle(
-                        fontFamily: "Poppins",
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide:
-                              BorderSide(width: 2, color: theme.primaryColor)),
-                      hintText: "Enter your Name",
-                      label: Text(
-                        "Full-Name",
-                        style: theme.textTheme.displaySmall,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
+                  Text(
+                    lang.welcomeback,
+                    textAlign: TextAlign.start,
+                    style: theme.textTheme.bodyLarge,
                   ),
                   TextFormField(
                     validator: (value) {
@@ -111,9 +82,9 @@ class _SignupState extends State<Signup> {
                           borderRadius: BorderRadius.circular(12),
                           borderSide:
                               BorderSide(width: 2, color: theme.primaryColor)),
-                      hintText: "Enter your Email address",
+                      hintText: lang.enteryouremail,
                       label: Text(
-                        "E-mail",
+                        lang.email,
                         style: theme.textTheme.displaySmall,
                       ),
                     ),
@@ -122,11 +93,10 @@ class _SignupState extends State<Signup> {
                     height: 20,
                   ),
                   TextFormField(
-                    obscureText:isobscure,
+                    obscureText: isobscure,
                     validator: (value) {
                       if (value == null || value.trim().isEmpty) {
-                        return "Please Enter your Password";
-               
+                        return "Please Enter Password";
                       }
                       return null;
                     },
@@ -146,7 +116,7 @@ class _SignupState extends State<Signup> {
                           });
                         },
                         icon: Icon(
-                          isobscure ? Icons.visibility : Icons.visibility_off,
+                          isobscure ? Icons.visibility_off : Icons.visibility,
                           color: theme.primaryColor,
                         ),
                       ),
@@ -159,11 +129,24 @@ class _SignupState extends State<Signup> {
                           borderRadius: BorderRadius.circular(12),
                           borderSide:
                               BorderSide(width: 2, color: theme.primaryColor)),
-                      hintText: "Enter your Password",
+                      hintText: lang.enteryourPassword,
                       label: Text(
-                        "Password",
+                        lang.password,
                         style: theme.textTheme.displaySmall,
                       ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  InkWell(
+                    child: Text(
+                      lang.forgetpassword,
+                      style: theme.textTheme.displaySmall?.copyWith(
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black,
+                          fontSize: 16,
+                          decoration: TextDecoration.underline),
                     ),
                   ),
                   const SizedBox(
@@ -178,16 +161,27 @@ class _SignupState extends State<Signup> {
                     ),
                     onPressed: () {
                       if (formkey.currentState!.validate()) {
-                        /* Navigator.of(context).pushReplacementNamed(PageRoutesName.login);*/
+                        FirebaseUtils.signInWithEmailAndPassword(
+                                emailController.text, passwordController.text)
+                            .then(
+                          (value) {
+                            if (value) {
+                              Navigator.pushReplacementNamed(
+                                  context, LayoutView.routename);
+                            }
+                          },
+                        );
                       }
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "Create Account",
+                          lang.login,
                           style: theme.textTheme.displaySmall?.copyWith(
-                              fontWeight: FontWeight.bold, fontSize: 20,color: Colors.white),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                              color: Colors.white),
                         ),
                         const Icon(
                           Icons.arrow_forward,
@@ -195,6 +189,22 @@ class _SignupState extends State<Signup> {
                           size: 20,
                         )
                       ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Navigator.pushNamed(context, Signup.routename);
+                    },
+                    child: Text(
+                      lang.orcreatemyaccount,
+                      style: theme.textTheme.displaySmall?.copyWith(
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black,
+                          fontSize: 16,
+                          decoration: TextDecoration.underline),
                     ),
                   ),
                 ],
