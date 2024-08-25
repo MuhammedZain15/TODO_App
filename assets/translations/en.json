@@ -1,0 +1,21 @@
+{
+  "login": "Login",
+  "welcome back ": "Welcome Back!",
+  "email": "E-mail",
+  "password": "Password",
+  "forget password": "Forget password?",
+  "or create my account": "Or create my account",
+  "full-name": "Full-Name",
+  "create account": "Create Account",
+  "to do list" : "TO DO List",
+  "no tasks" : "No Tasks",
+  "edit": "Edit",
+  "delete" : "Delete",
+  "done":"Done",
+  "add new task": "Add New Task",
+  "title": "Title",
+  "description": "Description",
+  "selected date": "Selected Date",
+  "setting": "Setting",
+  "theme": "Theme"
+}
